@@ -1,0 +1,15 @@
+.playerbox-container{
+    width: 100%;
+    height: 141px;
+    background: #DCF6E4;
+    border: 1px solid #70707026;
+    border-radius: 15px;
+    padding: 14px 17px 15px; 
+
+    .avatar{
+        width: 110px;
+        height: 110px;
+        border-width: 5px;
+        border-style: solid;
+    }
+}
