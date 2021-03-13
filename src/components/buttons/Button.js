@@ -5,8 +5,10 @@ function Button(props){
 
     return (
         <>
-            <button onClick={(event)=>{ props.handleClick(event); }} style={{backgroundColor: props.backgroundColor}}>
-                <img src={props.src} alt={props.altText}/>
+            <button onClick={()=>{ props.handleClickEvent(); }} style={{...props.customClass,backgroundColor: props.backgroundColor}}>
+                {
+                    props.src ? <img src={props.src} alt={props.altText}/> : null
+                }
                 {props.children}
             </button>
         </>
