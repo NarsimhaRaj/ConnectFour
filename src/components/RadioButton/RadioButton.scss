@@ -1,0 +1,21 @@
+.radioButton {
+    height: 40px;
+    background: #EFF3FF 0% 0% no-repeat padding-box;
+    border: 1px solid #70707026;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 25px 28px;
+
+    input{
+        width: 30px;
+        height:30px;
+        background: #4B7BFF 0% 0% no-repeat padding-box;
+        margin-right: 30px;
+    }
+    label{
+        text-align: left;
+        font: normal normal normal 28px/42px Poppins;
+        letter-spacing: 0px;
+        color: #424242;
+    }
+}

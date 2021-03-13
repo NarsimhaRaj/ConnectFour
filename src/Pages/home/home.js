@@ -11,6 +11,11 @@ import { withRouter } from 'react-router';
 import Modal from '../../components/modal/modal';
 
 
+var cardCustomStyle = {
+    width: "75%",
+    height: "660px"
+}
+
 function Home(props){
 
     var [isModal, setModal] = useState(false);
@@ -30,33 +35,33 @@ function Home(props){
             </p>
         </div>
 
-        <Card width="800px" height="600px">
-        <div className="row main-card-content">
-            <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+        <Card customStyle={cardCustomStyle}>
+        <div className="main-card-content">
+            <div className="">
                 <div className="play-button">
                 <img src="" alt="play"/>
                 <label>play</label>
                 </div>
             </div>
-            <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="">
                 <div className="playing-img"></div>
             </div>
         </div>
         <div className="button-group">
-            <div className="row row-buttons">
-                <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="row-buttons">
+                <div className="button">
                     <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}} src={one} backgroundColor="#4BABFF" altText="Cusotm Game" >Custom Game</Button>
                 </div>
-                <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+                <div className="button">
                     <Button src={two} backgroundColor="#4B7BFF" handleClickEvent={()=>{ props.history.push("/twoPlayerGame")}} altText="Two Players" >Two Players</Button>
                 </div>
             </div>
             <div>
-            <div className="row row-buttons">
-                <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+            <div className="row-buttons">
+                <div className="button">
                         <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={online} backgroundColor="#4B4BFF" altText="Online Game" >Online Game</Button>
                     </div>
-                    <div className="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+                    <div className="button">
                         <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={training} backgroundColor="#6E4BFF" altText="Training Game" >Training Game</Button>
                     </div>
                 </div>
@@ -65,10 +70,11 @@ function Home(props){
 
       </Card>
       <div className="card-behind">
-            
       </div>
 
-      <Modal isModal={isModal} disableModal={()=>{ setModal(false); }}>Comming Soon</Modal>
+      <Modal isModal={isModal} disableModal={()=>{ setModal(false); }}>
+          <h2 style={{width: "100%", height:"100%", textAlign: "center"}}>Comming Soon</h2>
+      </Modal>
       </div>
     );
 }

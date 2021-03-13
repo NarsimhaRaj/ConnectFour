@@ -5,9 +5,11 @@
     border-radius: 30px;
     opacity: 1;
     padding: 45px;
+    height: 100%;
 
     @media only screen and (max-width: 1023px) {
-        width: 100%;
+        width: 90%;
+        height: auto;
     }
 }
 
