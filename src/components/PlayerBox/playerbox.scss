@@ -19,5 +19,13 @@
             text-align: left;
             font: normal normal normal 18px/27px Poppins;
         }
+        @media screen and (max-width: 556px){
+            h2{
+                font-size: 20px;
+            }
+            p{
+                font-size: 12px;
+            }
+        }
     }
 }

@@ -11,11 +11,6 @@ import { withRouter } from 'react-router';
 import Modal from '../../components/modal/modal';
 
 
-var cardCustomStyle = {
-    width: "75%",
-    height: "660px"
-}
-
 function Home(props){
 
     var [isModal, setModal] = useState(false);
@@ -35,7 +30,7 @@ function Home(props){
             </p>
         </div>
 
-        <Card customStyle={cardCustomStyle}>
+        <Card customClass={"customCard"}>
         <div className="main-card-content">
             <div className="">
                 <div className="play-button">

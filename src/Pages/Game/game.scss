@@ -5,12 +5,14 @@
     height: 100%;
     justify-content: center;
     align-items: center;
-
-    @media screen and (max-width: 1023px){
-        flex-direction: column;
-    }
     position: relative;
-    right: 17%;
+
+    @media screen and (min-width: 1023px){
+        right: 17%;
+    }
+    @media screen and (max-width: 768px){
+        align-items: flex-start;
+    }
 }
 
 .game-row {
@@ -22,6 +24,8 @@
     flex-direction: column;   
     position: absolute;
     z-index: 100;
+    top: 20px;
+    left: 20px;
 }
 
 .circle-border{
@@ -37,6 +41,15 @@
         height: 100%;
         box-shadow: 0px 3px 290px #00000001;
     }
+
+    @media screen and (max-width: 1440px){
+        width: 60px;
+        height: 60px;
+    }    
+    @media screen and (max-width: 768px){
+        width: 30px;
+        height: 30px;
+    }    
 }
 
 .blue {
@@ -54,6 +67,24 @@
     max-height: 840px;
     z-index: 2001;
     position: absolute;
+
+    @media screen and (max-width: 1440px){
+        max-width: 540px;
+        max-height: 540px;
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    @media screen and (max-width: 768px){
+        max-width: 280px;
+        max-height: 280px;
+        .avatar {
+            width: 25px;
+            height: 25px;
+        }
+    }
 }
 
 .backend-card{
@@ -72,16 +103,44 @@
         text-align: center;
     }
 
-    @media screen and (max-width: 1023px){
-        left: 0;
-        top: 60%;
-        position: relative;
+    // @media screen and (max-width: 1400px){
+    //     left: 0;
+    //     top: 60%;
+    //     position: relative;
 
-        .tournament-board{
+    //     .tournament-board{
+    //         width: 100%;
+    //         display: flex;
+    //         flex-direction: column;
+    //         text-align: center;
+    //     }
+    // }
+
+    @media screen and (max-width: 1440px){        
+        .playerbox-container {
+            max-height: 70px;
+
+            .description {
+                h2, p{
+                    margin: 5px;
+                }
+            }
+        }
+        button{
+            height: 50px;
+        }
+        .title{
+            font-size: 15px;
+        }
+    }
+    @media screen and (max-width: 768px){        
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 42%;
+        max-height: 600px;
+        .tournament-board {
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            text-align: center;
         }
     }
 }
@@ -112,6 +171,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 20px;
+    left: 20px;
+    
+    @media screen and (max-width: 1440px){
+        width: 92%;
+        height: 92%;
+    }
+    @media screen and (max-width: 768px){
+        width: 86%;
+        height: 86%;
+        left: 15px;
+        top: 15px;
+    }
 }
 
 .background-mat {

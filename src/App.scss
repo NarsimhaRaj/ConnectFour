@@ -23,12 +23,28 @@
 .row-buttons {
     display: flex;
     justify-content: space-between;    
-    @media screen and (max-width: 1023px){
-        flex-direction: column;
-        margin: 10px;
-    }
 
     .button:nth-child(2){
         margin-left: 30px;
+    }
+
+    @media screen and (max-width: 1023px){
+        flex-direction: column;
+        margin: 10px;
+        
+        .button:nth-child(2){
+            margin-left: 0;
+        }
+    }
+
+}
+
+.modal-overlay {
+    @media screen and (max-width: 1023px){
+        .row-buttons{
+            flex-direction: row;
+            margin: 5px;
+        }
+    
     }
 }

@@ -7,7 +7,7 @@ function PlayerBox(props){
         <>
             <div className="playerbox-container" style={{backgroundColor: props.backgroundColor}}>
                 <Avatar borderColor={props.borderColor} src={props.src}></Avatar>
-                <div className="col-md-10 col-xl-10 col-sm-10 col-xs-10 description">
+                <div className="description">
                     <p>
                         {props.description}
                     </p>
@@ -15,6 +15,19 @@ function PlayerBox(props){
                         {props.name}
                     </h2>
                 </div>
+                {
+                    props.score!=undefined ?
+                        <div className="description">
+                            <p>
+                                score
+                            </p>
+                            <h2>
+                                {props.score}
+                            </h2>
+                        </div>
+                        :
+                        null
+                }
             </div>
         </>
     )

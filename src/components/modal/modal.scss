@@ -17,7 +17,9 @@
 .modal-card {
     width: 60%;
     height: 80%;
+    max-height: 745px;
     margin: 0 auto;
+    max-width: 610px;
     box-shadow: 0px 3px 6px #00000029;
     border: 1px solid #F7F7F7;
     border-radius: 30px;
@@ -28,10 +30,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    @media screen and (max-width: 1023px){
-        width: 90%;
-    }
+    overflow-y: scroll;
 
     .modal-title{
         text-align: center;
@@ -48,4 +47,12 @@
     .modal-footer {
         width: 100%;        
     }
+
+    @media screen and (max-width: 1023px){
+        width: 95%;
+        .modal-title {
+            margin-top: 40px;
+        }
+    }
+
 }

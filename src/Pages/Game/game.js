@@ -10,21 +10,19 @@ import Button from '../../components/buttons/Button';
 var undo = [];
 
 export class Game extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        var total = Math.ceil(this.props.match.params.totalGames/2);
+        var player = this.props.match.params.startPlayer;
         this.state = {
-            playerCounter: 0,
-            boardState: [
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0],
-                [0,0,0,0,0,0,0,0]
-            ],
-            win: false
+            playerCounter: player,
+            boardState: Array(8).fill().map(() => Array(8).fill(0)),
+            win: false,
+            player1WinCounter: 0,
+            player2WinCounter: 0,
+            totalWins: total,
+            currentGame: 1,
+            totalGames: this.props.match.params.totalGames
         };
     }
 
@@ -61,16 +59,13 @@ export class Game extends React.Component{
         this.checkForWinningState(rowIndex, colIndex);
     }   
     checkForWinningState = (rowIndex, colIndex)=>{       
-        // if((boardState[0][0]==boardState[0][1] && boardState[0][0]==boardState[0][2] && boardState[0][1]==boardState[0][2] && (boardState[0][0]==1 || boardState[0][0]==2))||        
-        // (boardState[0][0]==boardState[1][0] && boardState[0][0]==boardState[2][0] && boardState[1][0]==boardState[2][0] && (boardState[0][0]==1 || boardState[0][0]==2))||
-        // (boardState[0][0]==boardState[1][1] && boardState[0][0]==boardState[2][2] && boardState[1][1]==boardState[2][2] && (boardState[0][0]==1 || boardState[0][0]==2))||
-        // (boardState[0][1]==boardState[1][1] && boardState[0][1]==boardState[2][1] && boardState[1][1]==boardState[2][1] && (boardState[0][1]==1 || boardState[0][1]==2))||
-        // (boardState[0][2]==boardState[1][2] && boardState[0][2]==boardState[2][2] && boardState[1][2]==boardState[2][2] && (boardState[0][2]==1 || boardState[0][2]==2))||
-        // (boardState[0][2]==boardState[1][1] && boardState[0][2]==boardState[2][0] && boardState[2][0]==boardState[1][1] && (boardState[0][2]==1 || boardState[0][2]==2))||
-        // (boardState[1][0]==boardState[1][1] && boardState[1][0]==boardState[1][2] && boardState[1][1]==boardState[1][2] && (boardState[1][0]==1 || boardState[1][0]==2))||
-        // (boardState[2][0]==boardState[2][1] && boardState[2][0]==boardState[2][2] && boardState[2][1]==boardState[2][2] && (boardState[2][0]==1 || boardState[2][0]==2))){
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
-            this.setState({...this.state, win: true});            
+            if(this.state.playerCounter==0){
+                this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1});            
+            }
+            else{
+                this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1});
+            }
         }
 
     }
@@ -93,8 +88,8 @@ export class Game extends React.Component{
         var x = rowIndex;
         var count = 0;
 
-        while(count<4 && x<9){
-            if(boardState[x][colIndex]!=currVal){
+        while(count<4 && x<8){
+            if(boardState[x][colIndex]!==currVal){
                 break;
             }
             x++;
@@ -102,7 +97,7 @@ export class Game extends React.Component{
         }
         x = rowIndex-1;
         while(count<4 && x>=0){
-            if(boardState[x][colIndex]!=currVal){
+            if(boardState[x][colIndex]!==currVal){
                 break;
             }
             x--;
@@ -121,8 +116,8 @@ export class Game extends React.Component{
         var x = colIndex;
         var count = 0;
 
-        while(count<4 && x<9){
-            if(boardState[rowIndex][x]!=currVal){
+        while(count<4 && x<8){
+            if(boardState[rowIndex][x]!==currVal){
                 break;
             }
             x++;
@@ -130,14 +125,14 @@ export class Game extends React.Component{
         }
         x = rowIndex-1;
         while(count<4 && x>=0){
-            if(boardState[rowIndex][x]!=currVal){
+            if(boardState[rowIndex][x]!==currVal){
                 break;
             }
             x--;
             count++;
         }
 
-        if(count==4){
+        if(count===4){
             return true;
         }
         return false;
@@ -150,8 +145,8 @@ export class Game extends React.Component{
         var y = colIndex;
         var count = 0;
 
-        while(count<4 && x<9 && y<9){
-            if(boardState[x][y]!=currVal){
+        while(count<4 && x<8 && y<8){
+            if(boardState[x][y]!==currVal){
                 break;
             }
             x++;
@@ -161,7 +156,7 @@ export class Game extends React.Component{
         x = rowIndex-1;
         y = colIndex-1;
         while(count<4 && x>=0 && y>=0){
-            if(boardState[x][y]!=currVal){
+            if(boardState[x][y]!==currVal){
                 break;
             }
             x--;
@@ -169,15 +164,15 @@ export class Game extends React.Component{
             count++;
         }
 
-        if(count==4){
+        if(count===4){
             return true;
         }
         x = rowIndex;
         y = colIndex;
         count = 0;
 
-        while(count<4 && x<9 && y<9){
-            if(boardState[x][y]!=currVal){
+        while(count<4 && x<8 && y>=0){
+            if(boardState[x][y]!==currVal){
                 break;
             }
             x++;
@@ -186,8 +181,8 @@ export class Game extends React.Component{
         }
         x = rowIndex-1;
         y = colIndex+1;
-        while(count<4 && x>=0 && y>=0){
-            if(boardState[x][y]!=currVal){
+        while(count<4 && x>=0 && y<8){
+            if(boardState[x][y]!==currVal){
                 break;
             }
             x--;
@@ -195,10 +190,24 @@ export class Game extends React.Component{
             count++;
         }
 
-        if(count==4){
+        if(count===4){
             return true;
         }
         return false;
+    }
+
+    startNewGame = ()=>{
+        if((this.state.currentGame==this.state.totalGames)|| (this.state.player2WinCounter===this.state.totalWins && this.state.player1WinCounter===this.state.totalWins)){
+            this.props.history.push("/");
+        }
+        else{
+            this.setState({...this.state, 
+                win: 0, 
+                currentGame: this.state.currentGame+1,
+                playerCounter: this.props.match.params.startPlayer,
+                boardState: Array(8).fill().map(() => Array(8).fill(0))
+            })
+        }
     }
 
     render(){
@@ -243,21 +252,44 @@ export class Game extends React.Component{
                 <Card customClass={"backend-card"}>
                     <div className="tournament-board">
                         <div className="title">
-                            <h2>2 game play</h2>
-                            <p>current game</p>
+                            <h2>{this.state.totalGames} Games Tournament</h2>
+                            {!this.state.win && <p>{this.state.currentGame} game</p>}
                         </div>
                         {
-                            this.state.win ? <h1>Congratulations {this.state.playerCounter===0? "David": "Mario"}, you Won</h1> : null
+                            (this.state.win && this.state.player2WinCounter!==this.state.totalWins && this.state.player1WinCounter!==this.state.totalWins)? <>
+                            <div style={{backgroundColor: "#FF6600"}}>Congratulations! </div>
+                            <div> 
+                                {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.currentGame}
+                            </div> </>: null
+                        }
+                        {
+                        (this.state.win && this.state.player1WinCounter==this.state.totalWins) && (<>
+                            <div style={{bbackgroundColor: "#FF6600"}}>Congratulations! </div>
+                            <div> 
+                                {this.state.playerCounter===0? "David": "Mario"}, you Won Tournament
+                            </div> </>)
+                        }
+                        {
+                        (this.state.win && this.state.player2WinCounter!==this.state.totalWins && this.state.player1WinCounter!==this.state.totalWins && this.state.player2WinCounter==this.state.totalWins) && (<>
+                            <div style={{bbackgroundColor: "#FF6600"}}>Congratulations! </div>
+                            <div> 
+                                {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.count}
+                            </div> </>)
+                        }
+                        {
+                        (this.state.win && this.state.currentGame==this.state.totalGames) && (<>
+                            <div style={{bbackgroundColor: "#FF6600"}}>Draw</div>
+                        </>)
                         }
                         <div>
-                        <PlayerBox backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">
                                 {
                                     this.state.win ? 
-                                    <Button customClass={"savecancelButton"} backgroundColor="#4B7BFF" >Next Game</Button> 
+                                    <Button customClass={"savecancelButton"} backgroundColor="#4B7BFF" handleClickEvent={this.startNewGame} >Next Game</Button> 
                                     :
                                     <Button customClass={"savecancelButton"} backgroundColor="#4B7BFF" handleClickEvent={this.undoStep} >Undo Step</Button>
                                 }

@@ -34,12 +34,6 @@ var startGameButton =  {
     alignItems: "center"
 }
 
-var cardCustomStyle = {
-    width: "60%",
-    height: "892px",
-    marginTop: "600px",
-}
-
 var modalClass = {
     height: "660px"
 }
@@ -52,6 +46,9 @@ function TwoPlayerGame(props){
 
     var [modal, setModal] = useState(false);
     var [modal2, setModal2] = useState(false);
+    var [totalGames, setTotalGames] = useState(10);
+    var [startPlayer, setStartPlayer] = useState(1);
+
     var handleClickEvent = function(){
         //props.history.push("startgame");
         setModal(true);
@@ -67,7 +64,7 @@ function TwoPlayerGame(props){
         <div class="two-player-title">
             <h1>Two Player Game</h1>
         </div>
-        <Card customStyle={cardCustomStyle} >
+        <Card customClass="custom-players-card">
             <PlayerBox backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01"/>
             <PlayerBox backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02"/>
             <PlayerBox backgroundColor="#EFF3FF" src={win} borderColor="#00000029" name="5 Games" description="Number of Games"/>
@@ -77,10 +74,10 @@ function TwoPlayerGame(props){
 
         <Modal customClass={modalClass} isModal={modal} title="Number of Games" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton number="2">2 Games</RadioButton>
-                <RadioButton number="3">3 Games</RadioButton>
-                <RadioButton number="5">5 Games</RadioButton>
-                <RadioButton number="10">10 Games</RadioButton>
+                <RadioButton id="2gmaes" value="2" handleClickEvent={(num)=>setTotalGames(num)} >2 Games</RadioButton>
+                <RadioButton id="3gmaes" value="3" handleClickEvent={(num)=>setTotalGames(num)} >3 Games</RadioButton>
+                <RadioButton id="5gmaes" value="5" handleClickEvent={(num)=>setTotalGames(num)} >5 Games</RadioButton>
+                <RadioButton id="10gmaes" value="10" handleClickEvent={(num)=>setTotalGames(num)} >10 Games</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
@@ -94,13 +91,13 @@ function TwoPlayerGame(props){
             </div>
         </Modal>
 
-        <Modal customClass={modalClass2} isModal={modal2} title="Number of Games" disableModal={disableModal}>
+        <Modal customClass={modalClass2} isModal={modal2} title="Who Starts" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton number="2">Alternative turn</RadioButton>
-                <RadioButton number="3">Looser first</RadioButton>
-                <RadioButton number="5">Winner first</RadioButton>
-                <RadioButton number="10">Always player 01</RadioButton>
-                <RadioButton number="11">Always player 02</RadioButton>
+                <RadioButton id="alternative" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
+                <RadioButton id="looser" value="1" handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
+                <RadioButton id="winner" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
+                <RadioButton id="player1" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
+                <RadioButton id="player2" value="1" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
@@ -108,7 +105,7 @@ function TwoPlayerGame(props){
                         <Button customStyle={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
                     </div>
                     <div className="button">
-                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{props.history.push("/game")}}>OK</Button>
+                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{props.history.push(`/game/${totalGames}/${startPlayer}`)}}>OK</Button>
                     </div>
                 </div>
             </div>
