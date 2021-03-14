@@ -4,6 +4,7 @@ import Home from './Pages/home/home';
 import "react-bootstrap/dist/react-bootstrap.min.js";
 import './App.scss';
 import 'react-bootstrap';
+import { Game } from './Pages/Game/game';
 
 function App() {
   return (
@@ -12,8 +13,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/twoPlayerGame" component={TwoPlayerGame} />
-            {/* <Route path="/startgame" component={Modal}/> */}
-          {/* </Route>  */}
+          <Route exact path="/game" component={Game} />          
           <Route path="*" component={Home} />
         </Switch>
     </Router>

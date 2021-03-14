@@ -1,0 +1,125 @@
+
+.game-cards {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 1023px){
+        flex-direction: column;
+    }
+    position: relative;
+    right: 17%;
+}
+
+.game-row {
+    display: flex;    
+}
+
+.game-content {
+    display: flex;
+    flex-direction: column;   
+    position: absolute;
+    z-index: 100;
+}
+
+.circle-border{
+    width: 100px;
+    height: 100px;
+    box-shadow: 0px 3px 290px #00000001;
+    border-radius: 50%;
+    border: 5px solid #84A4FC;
+    background: radial-gradient(circle at 65% 24%, white 1px, white 3%, white 60%, grey 100%);
+
+    .circle {
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 3px 290px #00000001;
+    }
+}
+
+.blue {
+    background: red;
+}
+
+.yellow {
+    background: yellowgreen;
+}
+
+.front-card, .backend-card {    
+    width: 100%;
+    max-width: 840px;
+    height: 100%;
+    max-height: 840px;
+    z-index: 2001;
+    position: absolute;
+}
+
+.backend-card{
+    position: absolute;
+    left: 50%;  
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    border: 1px solid #F7F7F7;
+    border-radius: 30px;
+    z-index: 2000;
+    
+    .tournament-board{
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        float: right;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 1023px){
+        left: 0;
+        top: 60%;
+        position: relative;
+
+        .tournament-board{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+}
+
+.button {
+    width: 100%;
+    font-size: 32px;    
+}
+
+.savecancelButton {
+    background-color: #4B7BFF;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.end-tournament {
+    color: #CC0000;
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+}
+
+.background-mat-parent{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-mat {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background-color: #84A4FC;
+    z-index: -1;
+    top: 25px;
+    left: 25px;
+}

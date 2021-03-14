@@ -72,7 +72,7 @@ function TwoPlayerGame(props){
             <PlayerBox backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02"/>
             <PlayerBox backgroundColor="#EFF3FF" src={win} borderColor="#00000029" name="5 Games" description="Number of Games"/>
             <PlayerBox backgroundColor="#EFF3FF" src={run} borderColor="#00000029" name="Alternative turn" description="Who starts"/>            
-            <Button handleClickEvent={()=>{handleClickEvent()}} customClass={startGameButton} backgroundColor="#4B7BFF">Start Game</Button>
+            <Button handleClickEvent={()=>{handleClickEvent()}} customStyle={startGameButton} backgroundColor="#4B7BFF">Start Game</Button>
         </Card>   
 
         <Modal customClass={modalClass} isModal={modal} title="Number of Games" disableModal={disableModal}>
@@ -85,10 +85,10 @@ function TwoPlayerGame(props){
             <div className="modal-footer">
                 <div className="row row-buttons">
                     <div className="button">
-                        <Button customClass={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
+                        <Button customStyle={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
                     </div>
                     <div className="button">
-                        <Button customClass={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{setModal2(true)}}>OK</Button>
+                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{setModal2(true)}}>OK</Button>
                     </div>
                 </div>
             </div>
@@ -105,10 +105,10 @@ function TwoPlayerGame(props){
             <div className="modal-footer">
                 <div className="row row-buttons">
                     <div className="button">
-                        <Button customClass={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
+                        <Button customStyle={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
                     </div>
                     <div className="button">
-                        <Button customClass={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{handleClickEvent()}}>OK</Button>
+                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{props.history.push("/game")}}>OK</Button>
                     </div>
                 </div>
             </div>
