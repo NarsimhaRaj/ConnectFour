@@ -22,8 +22,26 @@ export class Game extends React.Component{
         }
         var player = parseInt(this.props.match.params.startPlayer);
 
+        var whoStarts = this.props.match.params.startPlayer;
+        var currPlayer = 0;
+        if(whoStarts=='a'){ 
+            currPlayer = this.state.currentGame%2;
+        }
+        else if(whoStarts=='b'){
+            currPlayer = currPlayer^1;
+        }
+        else if(whoStarts=='d'){
+            currPlayer = 0;
+        }
+        else if(whoStarts=='e'){
+            currPlayer = 1;
+        }
+        else{
+            currPlayer=currPlayer;
+        }
+
         this.state = {
-            playerCounter: player,
+            playerCounter: currPlayer,
             boardState: Array(8).fill().map(() => Array(8).fill(0)),
             win: false,
             player1WinCounter: 0,
@@ -209,7 +227,7 @@ export class Game extends React.Component{
             this.props.history.push("/");
         }
         else{
-            var whoStarts = parseInt(this.props.match.params.startPlayer);
+            var whoStarts = this.props.match.params.startPlayer;
             var currPlayer = this.state.playerCounter;
             if(whoStarts=='a'){ 
                 currPlayer = this.state.currentGame%2;
@@ -305,8 +323,8 @@ export class Game extends React.Component{
                             null
                         }
                         <div>
-                        <PlayerBox classNameSelected={this.state.playerCounter===0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox classNameSelected={this.state.playerCounter===1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">
