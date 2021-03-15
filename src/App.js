@@ -1,9 +1,7 @@
 import TwoPlayerGame from './Pages/TwoPlayerGame/twoPlayerGame';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Home from './Pages/home/home';
-import "react-bootstrap/dist/react-bootstrap.min.js";
 import './App.scss';
-import 'react-bootstrap';
 import { Game } from './Pages/Game/game';
 
 function App() {

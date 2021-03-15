@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Card from '../../components/card/card';
 import Button from '../../components/buttons/Button';
 import './home.scss';
-
 import one from "../../Assets/images/one.png";
 import two from "../../Assets/images/two.png";
 import online from "../../Assets/images/online.png";    
@@ -34,8 +33,10 @@ function Home(props){
         <div className="main-card-content">
             <div className="">
                 <div className="play-button">
-                <img src="" alt="play"/>
-                <label>play</label>
+                <div>
+                    <i class="far fa-play-circle"></i>
+                </div>
+                <label>PLAY</label>
                 </div>
             </div>
             <div className="">

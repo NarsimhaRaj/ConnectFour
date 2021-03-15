@@ -12,8 +12,16 @@ var undo = [];
 export class Game extends React.Component{
     constructor(props){
         super(props);
-        var total = Math.ceil(this.props.match.params.totalGames/2);
-        var player = this.props.match.params.startPlayer;
+        var total = 1;
+        var allGames = parseInt(this.props.match.params.totalGames);
+        if(allGames%2==0){
+            total = allGames/2+1;
+        }
+        else{
+            total = Math.ceil(allGames/2);
+        }
+        var player = parseInt(this.props.match.params.startPlayer);
+
         this.state = {
             playerCounter: player,
             boardState: Array(8).fill().map(() => Array(8).fill(0)),
@@ -22,7 +30,7 @@ export class Game extends React.Component{
             player2WinCounter: 0,
             totalWins: total,
             currentGame: 1,
-            totalGames: this.props.match.params.totalGames
+            totalGames: allGames
         };
     }
 
@@ -201,10 +209,27 @@ export class Game extends React.Component{
             this.props.history.push("/");
         }
         else{
+            var whoStarts = parseInt(this.props.match.params.startPlayer);
+            var currPlayer = this.state.playerCounter;
+            if(whoStarts=='a'){ 
+                currPlayer = this.state.currentGame%2;
+            }
+            else if(whoStarts=='b'){
+                currPlayer = currPlayer^1;
+            }
+            else if(whoStarts=='d'){
+                currPlayer = 0;
+            }
+            else if(whoStarts=='e'){
+                currPlayer = 1;
+            }
+            else{
+                currPlayer=currPlayer;
+            }
             this.setState({...this.state, 
                 win: 0, 
                 currentGame: this.state.currentGame+1,
-                playerCounter: this.props.match.params.startPlayer,
+                playerCounter: currPlayer,
                 boardState: Array(8).fill().map(() => Array(8).fill(0))
             })
         }
@@ -256,34 +281,32 @@ export class Game extends React.Component{
                             {!this.state.win && <p>{this.state.currentGame} game</p>}
                         </div>
                         {
-                            (this.state.win && this.state.player2WinCounter!==this.state.totalWins && this.state.player1WinCounter!==this.state.totalWins)? <>
-                            <div style={{backgroundColor: "#FF6600"}}>Congratulations! </div>
-                            <div> 
-                                {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.currentGame}
-                            </div> </>: null
-                        }
-                        {
-                        (this.state.win && this.state.player1WinCounter==this.state.totalWins) && (<>
-                            <div style={{bbackgroundColor: "#FF6600"}}>Congratulations! </div>
-                            <div> 
-                                {this.state.playerCounter===0? "David": "Mario"}, you Won Tournament
-                            </div> </>)
-                        }
-                        {
-                        (this.state.win && this.state.player2WinCounter!==this.state.totalWins && this.state.player1WinCounter!==this.state.totalWins && this.state.player2WinCounter==this.state.totalWins) && (<>
-                            <div style={{bbackgroundColor: "#FF6600"}}>Congratulations! </div>
-                            <div> 
-                                {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.count}
-                            </div> </>)
-                        }
-                        {
-                        (this.state.win && this.state.currentGame==this.state.totalGames) && (<>
-                            <div style={{bbackgroundColor: "#FF6600"}}>Draw</div>
-                        </>)
+                            (this.state.win && this.state.player2WinCounter!==this.state.totalWins && this.state.player1WinCounter!==this.state.totalWins)
+                            ? <>
+                                <div style={{color: "#FF6600"}}>Congratulations! </div>
+                                <div> 
+                                    {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.currentGame}
+                                </div> 
+                            </>
+                            : 
+                            (this.state.win && (this.state.player1WinCounter===this.state.totalWins || this.state.player2WinCounter===this.state.totalWins)) ? 
+                            <>
+                                <div style={{color: "#FF6600"}}>Congratulations! </div>
+                                <div> 
+                                    {this.state.playerCounter===0? "David": "Mario"}, you Won Tournament
+                                </div>
+                            </> 
+                            : 
+                            this.state.win && this.state.currentGame===this.state.totalGames ?
+                            <>
+                                <div style={{color: "#FF6600"}}>Draw !</div>
+                            </>
+                            :
+                            null
                         }
                         <div>
-                        <PlayerBox score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox classNameSelected={this.state.playerCounter===0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox classNameSelected={this.state.playerCounter===1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">

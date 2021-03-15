@@ -76,6 +76,9 @@
         border-radius: 20px;
         opacity: 1;
         margin-right: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         
         @media screen and (max-width: 1440px){
             width: 100px;

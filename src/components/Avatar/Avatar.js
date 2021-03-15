@@ -5,11 +5,21 @@ function Avatar(props){
 
     return (
         <>
-        <div className="avatar" style={{borderColor: props.borderColor, backgroundColor: props.backgroundColor }}>
-            {
-                props.src ?<img src={props.src} alt="icon" />: null 
-            }
-        </div>
+        {
+            props.classNameSelected ? <div className={props.classNameSelected}>
+                <div className="avatar" style={{borderColor: props.borderColor, backgroundColor: props.backgroundColor }}>
+                    {
+                        props.src ?<img src={props.src} alt="icon" />: null 
+                    }
+                </div>
+            </div>
+            :
+            <div className="avatar" style={{borderColor: props.borderColor, backgroundColor: props.backgroundColor }}>
+                {
+                    props.src ?<img src={props.src} alt="icon" />: null 
+                }
+            </div>
+        }
         </>
     );
 }

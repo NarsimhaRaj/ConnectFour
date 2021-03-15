@@ -93,11 +93,11 @@ function TwoPlayerGame(props){
 
         <Modal customClass={modalClass2} isModal={modal2} title="Who Starts" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton id="alternative" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
-                <RadioButton id="looser" value="1" handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
-                <RadioButton id="winner" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
-                <RadioButton id="player1" value="0" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
-                <RadioButton id="player2" value="1" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
+                <RadioButton id="alternative" value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
+                <RadioButton id="looser" value="b" handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
+                <RadioButton id="winner" value="c" handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
+                <RadioButton id="player1" value="d" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
+                <RadioButton id="player2" value="e" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">

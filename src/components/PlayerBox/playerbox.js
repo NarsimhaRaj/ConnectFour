@@ -6,7 +6,7 @@ function PlayerBox(props){
     return (
         <>
             <div className="playerbox-container" style={{backgroundColor: props.backgroundColor}}>
-                <Avatar borderColor={props.borderColor} src={props.src}></Avatar>
+                <Avatar classNameSelected={props.classNameSelected} borderColor={props.borderColor} src={props.src}></Avatar>
                 <div className="description">
                     <p>
                         {props.description}
