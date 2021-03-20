@@ -59,25 +59,30 @@ function TwoPlayerGame(props){
         setModal2(false);
     }
 
+    var setRadioButton = (num)=>{
+        setTotalGames(num);
+    }
+
     return (
         <>
         <div class="two-player-title">
             <h1>Two Player Game</h1>
         </div>
         <Card customClass="custom-players-card">
-            <PlayerBox backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01"/>
-            <PlayerBox backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02"/>
-            <PlayerBox backgroundColor="#EFF3FF" src={win} borderColor="#00000029" name="5 Games" description="Number of Games"/>
-            <PlayerBox backgroundColor="#EFF3FF" src={run} borderColor="#00000029" name="Alternative turn" description="Who starts"/>            
+            <PlayerBox divider={true} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01"/>
+            <PlayerBox divider={true} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02"/>
+            <PlayerBox divider={true} backgroundColor="#EFF3FF" src={win} borderColor="#00000029" name="5 Games" description="Number of Games"/>
+            <PlayerBox divider={true} backgroundColor="#EFF3FF" src={run} borderColor="#00000029" name="Alternative turn" description="Who starts"/>                        
+            <div className="divider divider-margin"></div>
             <Button handleClickEvent={()=>{handleClickEvent()}} customStyle={startGameButton} backgroundColor="#4B7BFF">Start Game</Button>
         </Card>   
 
         <Modal customClass={modalClass} isModal={modal} title="Number of Games" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton id="2gmaes" value="2" handleClickEvent={(num)=>setTotalGames(num)} >2 Games</RadioButton>
-                <RadioButton id="3gmaes" value="3" handleClickEvent={(num)=>setTotalGames(num)} >3 Games</RadioButton>
-                <RadioButton id="5gmaes" value="5" handleClickEvent={(num)=>setTotalGames(num)} >5 Games</RadioButton>
-                <RadioButton id="10gmaes" value="10" handleClickEvent={(num)=>setTotalGames(num)} >10 Games</RadioButton>
+                <RadioButton id="2gmaes" value="2" handleClickEvent={(num)=>setRadioButton(num)} >2 Games</RadioButton>
+                <RadioButton id="3gmaes" value="3" handleClickEvent={(num)=>setRadioButton(num)} >3 Games</RadioButton>
+                <RadioButton id="5gmaes" value="5" defaultChecked={"defaultChecked "} handleClickEvent={(num)=>setRadioButton(num)} >5 Games</RadioButton>
+                <RadioButton id="10gmaes" value="10" handleClickEvent={(num)=>setRadioButton(num)} >10 Games</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
@@ -93,7 +98,7 @@ function TwoPlayerGame(props){
 
         <Modal customClass={modalClass2} isModal={modal2} title="Who Starts" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton id="alternative" value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
+                <RadioButton id="alternative" defaultChecked={"defaultChecked "} value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
                 <RadioButton id="looser" value="b" handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
                 <RadioButton id="winner" value="c" handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
                 <RadioButton id="player1" value="d" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>

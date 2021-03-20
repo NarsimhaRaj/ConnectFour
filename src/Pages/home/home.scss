@@ -1,3 +1,17 @@
+.cards-group {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 33px;
+
+    @media screen and (max-width: 768px){
+        align-items: flex-start;
+    }
+}
+
 .home-body{
     width: 70%;
     height: 70%;
@@ -78,13 +92,23 @@
         margin-right: 75px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
+        flex-direction: column;
+        i {
+           color: white;
+           font-size: 35px;
+           margin-top: 15px;
+        }
         
+        label{
+            font-size: 22px;
+        }
+
         @media screen and (max-width: 1440px){
             width: 100px;
             height: 100px;
             margin-right: 0;
-            margin-left: 100px;
+            margin-left: 100px;            
         }
     }
 
@@ -96,7 +120,7 @@
         position: relative;
         z-index: 100;
         position: relative;
-        top: -150px;
+        top: -120px;
         right: -110px;     
         
         @media screen and (max-width: 1440px){
@@ -112,17 +136,62 @@
     }
 }
 
-
-
-.customCard {
+.customCard, .card-behind {
     width: 100%;
     height: 100%;
     max-width: 800px;
     max-height: 660px;
-    margin-top: 0;
+    z-index: 2001;
+    position: absolute;
 
     @media screen and (max-width: 1440px){
         max-width: 600px;
-        max-height: 560px;
+        min-height: 560px;
+        max-height: 660px;
     }
+}
+
+.card-behind {
+    z-index: 2000;
+    top: 90px;
+    background: #EEEEEE 0% 0% no-repeat padding-box;
+    border: 1px solid #F7F7F7;
+}
+
+.card-content-back-visiable {
+    position: absolute;
+    bottom: 50px;
+}
+
+.divider {
+    border: 1px solid #F7F7F7;
+    width: 100%;
+    z-index: -1;
+    border-radius: 20%;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}
+
+.top-circle, .right-circle{
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    z-index: -1;
+    width: 195px;
+    height: 191px;
+    border: 30px solid #E6FFE9;
+    border-radius: 50%;
+    opacity: 0.65;
+}
+
+.top-circle {
+    top: -10%;
+    left: 45%;
+    z-index: -1;
+    width: 110px;
+    height: 110px;    
+    border: 20px solid #FFF7DB;    
 }

@@ -28,6 +28,9 @@ function PlayerBox(props){
                         :
                         null
                 }
+                {
+                    props.divider ? <div className="playerbox-divider"></div>: null
+                }
             </div>
         </>
     )

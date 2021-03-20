@@ -28,44 +28,50 @@ function Home(props){
                around the world.
             </p>
         </div>
-
-        <Card customClass={"customCard"}>
-        <div className="main-card-content">
-            <div className="">
-                <div className="play-button">
-                <div>
-                    <i class="far fa-play-circle"></i>
+        <div className="cards-group">
+            <Card customClass={"customCard"}>
+            <div className="main-card-content">
+                <div className="">
+                    <div className="play-button">
+                    <div>
+                        <i class="far fa-play-circle"></i>
+                    </div>
+                    <label>PLAY</label>
+                    </div>
                 </div>
-                <label>PLAY</label>
-                </div>
-            </div>
-            <div className="">
-                <div className="playing-img"></div>
-            </div>
-        </div>
-        <div className="button-group">
-            <div className="row-buttons">
-                <div className="button">
-                    <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}} src={one} backgroundColor="#4BABFF" altText="Cusotm Game" >Custom Game</Button>
-                </div>
-                <div className="button">
-                    <Button src={two} backgroundColor="#4B7BFF" handleClickEvent={()=>{ props.history.push("/twoPlayerGame")}} altText="Two Players" >Two Players</Button>
+                <div className="">
+                    <div className="playing-img"></div>
                 </div>
             </div>
-            <div>
-            <div className="row-buttons">
-                <div className="button">
-                        <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={online} backgroundColor="#4B4BFF" altText="Online Game" >Online Game</Button>
+            <div className="divider"></div>
+            <div className="button-group">
+                <div className="row-buttons">
+                    <div className="button">
+                        <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}} src={one} backgroundColor="#4BABFF" altText="Cusotm Game" >Custom Game</Button>
                     </div>
                     <div className="button">
-                        <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={training} backgroundColor="#6E4BFF" altText="Training Game" >Training Game</Button>
+                        <Button src={two} backgroundColor="#4B7BFF" handleClickEvent={()=>{ props.history.push("/twoPlayerGame")}} altText="Two Players" >Two Players</Button>
+                    </div>
+                </div>
+                <div>
+                <div className="row-buttons">
+                    <div className="button">
+                            <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={online} backgroundColor="#4B4BFF" altText="Online Game" >Online Game</Button>
+                        </div>
+                        <div className="button">
+                            <Button handleClickEvent={()=>{handleClickEvent("/commingSoon")}}  src={training} backgroundColor="#6E4BFF" altText="Training Game" >Training Game</Button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-      </Card>
-      <div className="card-behind">
+            <div class="top-circle">
+            </div>
+            <div class="right-circle">
+            </div>
+        </Card>
+        <Card customClass={"card-behind"}>
+            <div className="card-content-back-visiable">© 2020</div>
+        </Card>
       </div>
 
       <Modal isModal={isModal} disableModal={()=>{ setModal(false); }}>

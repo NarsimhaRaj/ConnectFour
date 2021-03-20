@@ -11,6 +11,9 @@ button{
     letter-spacing: 0px;
     color: #FFFFFF;
     font-size: 24px;
+    &:focus{
+        outline: none;
+    }
     
     img{
         padding: 0 20px;
