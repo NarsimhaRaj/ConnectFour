@@ -8,6 +8,9 @@ import PlayerBox from '../../components/PlayerBox/playerbox';
 import Button from '../../components/buttons/Button';
 
 var undo = [];
+var winningPoisitons = [];
+var winnerSrc = player1;
+var winnerBorder = "#F8D146";
 
 export class Game extends React.Component{
     constructor(props){
@@ -53,10 +56,6 @@ export class Game extends React.Component{
         };
     }
 
-    componentDidMount(){
-
-    }
-
     handleClickEvent = (event, colIndex) => {
         if(this.state.win){
             return;
@@ -100,10 +99,22 @@ export class Game extends React.Component{
     checkForWinningState = (rowIndex, colIndex)=>{       
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
             if(this.state.playerCounter==0){
-                this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1});            
+                winnerSrc = player1;                
+                winnerBorder = "#37AC5D";
+                let newBoardState = this.state.boardState;
+                for(var i=0;i<4;i++){
+                    newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
+                }
+                this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
             }
             else{
-                this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1});
+                winnerSrc = player2;                
+                winnerBorder = "#F8D146";
+                let newBoardState = this.state.boardState;
+                for(var i=0;i<4;i++){
+                    newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
+                }
+                this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1, boardState: newBoardState});
             }
         }
 
@@ -142,6 +153,7 @@ export class Game extends React.Component{
             if(boardState[x][colIndex]!==currVal){
                 break;
             }
+            winningPoisitons.push({"x":x, "y": colIndex});
             x++;
             count++;
         }
@@ -149,42 +161,47 @@ export class Game extends React.Component{
         while(count<4 && x>=0){
             if(boardState[x][colIndex]!==currVal){
                 break;
-            }
+            }            
+            winningPoisitons.push({"x":x, "y": colIndex});
             x--;            
             count++;
         }
 
         if(count==4){
             return true;
-        }
+        }        
+        winningPoisitons = [];
         return false;
     }
 
     checkVertically = (rowIndex, colIndex)=>{
         var boardState = this.state.boardState;
         var currVal = boardState[rowIndex][colIndex];
-        var x = colIndex;
+        var y = colIndex;
         var count = 0;
 
-        while(count<4 && x<8){
-            if(boardState[rowIndex][x]!==currVal){
+        while(count<4 && y<8){
+            if(boardState[rowIndex][y]!==currVal){
                 break;
             }
-            x++;
+            winningPoisitons.push({"x":rowIndex, "y": y});
+            y++;
             count++;
         }
-        x = colIndex-1;
-        while(count<4 && x>=0){
-            if(boardState[rowIndex][x]!==currVal){
+        y = colIndex-1;
+        while(count<4 && y>=0){
+            if(boardState[rowIndex][y]!==currVal){
                 break;
             }
-            x--;
+            winningPoisitons.push({"x":rowIndex, "y": y});
+            y--;
             count++;
         }
 
         if(count===4){
             return true;
         }
+        winningPoisitons = [];
         return false;
     }
 
@@ -199,6 +216,7 @@ export class Game extends React.Component{
             if(boardState[x][y]!==currVal){
                 break;
             }
+            winningPoisitons.push({"x":x, "y": y});
             x++;
             y++;
             count++;
@@ -209,6 +227,7 @@ export class Game extends React.Component{
             if(boardState[x][y]!==currVal){
                 break;
             }
+            winningPoisitons.push({"x":x, "y": y});
             x--;
             y--;
             count++;
@@ -217,6 +236,7 @@ export class Game extends React.Component{
         if(count===4){
             return true;
         }
+        winningPoisitons=[];
         x = rowIndex;
         y = colIndex;
         count = 0;
@@ -225,6 +245,7 @@ export class Game extends React.Component{
             if(boardState[x][y]!==currVal){
                 break;
             }
+            winningPoisitons.push({"x":x, "y": y});
             x++;
             y--;
             count++;
@@ -235,6 +256,7 @@ export class Game extends React.Component{
             if(boardState[x][y]!==currVal){
                 break;
             }
+            winningPoisitons.push({"x":x, "y": y});
             x--;
             y++;
             count++;
@@ -243,6 +265,7 @@ export class Game extends React.Component{
         if(count===4){
             return true;
         }
+        winningPoisitons = [];
         return false;
     }
 
@@ -304,6 +327,11 @@ export class Game extends React.Component{
                                                     this.state.boardState[rowIndex][colIndex]===2 ?
                                                     <div className="avatar-circle">
                                                         <Avatar borderColor={"#F8D146"} backgroundColor={"#F6EFD5"} src={player2}></Avatar>
+                                                    </div> 
+                                                    :                                                    
+                                                    this.state.boardState[rowIndex][colIndex]===3 ?
+                                                    <div className="avatar-circle avatar-winning-circle">
+                                                        <Avatar borderColor={winnerBorder} backgroundColor={"#F6EFD5"} src={winnerSrc}></Avatar>
                                                     </div> 
                                                     :
                                                     <div key={colIndex} className={this.state.boardState[rowIndex][colIndex]===1?"circle-border blue" : this.state.boardState[rowIndex][colIndex]===2 ? "circle-border yellow" : "circle-border"} >

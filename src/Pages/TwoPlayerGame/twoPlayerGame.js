@@ -46,8 +46,8 @@ function TwoPlayerGame(props){
 
     var [modal, setModal] = useState(false);
     var [modal2, setModal2] = useState(false);
-    var [totalGames, setTotalGames] = useState(10);
-    var [startPlayer, setStartPlayer] = useState(1);
+    var [totalGames, setTotalGames] = useState(5);
+    var [startPlayer, setStartPlayer] = useState("a");
 
     var handleClickEvent = function(){
         //props.history.push("startgame");
