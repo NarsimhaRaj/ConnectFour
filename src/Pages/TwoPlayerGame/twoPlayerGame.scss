@@ -53,6 +53,7 @@ button{
 
 .player1Input input{
     background-color: #DCF6E4;
+    font-size: 28px;
 
     &:focus{
         outline: none;
@@ -61,6 +62,7 @@ button{
 
 .player2Input input{
     background-color: #F6EFD5;
+    font-size: 28px;
     
     &:focus{
         outline: none;
@@ -72,5 +74,11 @@ button{
     
     &:focus{
         outline: none;
+    }
+}
+
+.player1Input, .player2Input, .games, .whostarts {
+    .discription{
+        margin-right: 22px;
     }
 }

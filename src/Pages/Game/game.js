@@ -397,8 +397,8 @@ export class Game extends React.Component{
                             null
                         }
                         <div>
-                        <PlayerBox  inputCustomClass={"player1GameInput"} value={this.props.match.params.player1} classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox  inputCustomClass={"player2GameInput"} value={this.props.match.params.player2} classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox  inputCustomClass={"player1GameInput"} value={this.props.match.params.player1} classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 1" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox  inputCustomClass={"player2GameInput"} value={this.props.match.params.player2} classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 2" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">
