@@ -5,7 +5,7 @@ function Button(props){
 
     return (
         <>
-            <button onClick={()=>{ props.handleClickEvent(); }} className={props.customClass} style={{...props.customStyle, backgroundColor: props.backgroundColor}}>
+            <button disabled={props.disable} name={props.name ? props.name : ""} onClick={()=>{ props.handleClickEvent(); }} className={props.customClass} style={{...props.customStyle, backgroundColor: props.backgroundColor}}>
                 {
                     props.src ? <img src={props.src} alt={props.altText}/> : null
                 }

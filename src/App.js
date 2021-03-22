@@ -11,7 +11,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/twoPlayerGame" component={TwoPlayerGame} />
-          <Route exact path="/game/:totalGames/:startPlayer" component={Game} />          
+          <Route exact path="/game/:player1/:player2/:totalGames/:startPlayer" component={Game} />          
           <Route path="*" component={Home} />
         </Switch>
     </Router>

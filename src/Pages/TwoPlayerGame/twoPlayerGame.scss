@@ -7,6 +7,13 @@
     @media screen and (max-width: 1023px){
         width: 100%;
         margin: 10px;
+    }    
+}
+
+button{
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 }
 
@@ -40,5 +47,30 @@
                 }
             }
         }
+    }
+}
+
+
+.player1Input input{
+    background-color: #DCF6E4;
+
+    &:focus{
+        outline: none;
+    }
+}
+
+.player2Input input{
+    background-color: #F6EFD5;
+    
+    &:focus{
+        outline: none;
+    }
+}
+
+.games input, .whostarts input{
+    background-color: #EFF3FF;
+    
+    &:focus{
+        outline: none;
     }
 }

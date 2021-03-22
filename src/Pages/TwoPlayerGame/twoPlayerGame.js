@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import Card from '../../components/card/card';
 import PlayerBox from '../../components/PlayerBox/playerbox';
@@ -42,12 +42,40 @@ var modalClass2 = {
     height: "745px"
 }
 
+const gameStartBy = {
+    'a' : "Alternative turn",
+    'b':'Winner first',
+    'c':'Looser first',
+    'd':'Always Player1',
+    'e':'Always Player2'
+}
+
+var gamesVal=5;
+var startVal = "";
+
 function TwoPlayerGame(props){
 
     var [modal, setModal] = useState(false);
     var [modal2, setModal2] = useState(false);
     var [totalGames, setTotalGames] = useState(5);
     var [startPlayer, setStartPlayer] = useState("a");
+    var [player1Name, setPlayer1Name] = useState("David");
+    var [player2Name, setPlayer2Name] = useState("Mario");
+    var [player1Error, setPlayer1Error] = useState();
+    var [player2Error, setPlayer2Error] = useState();
+    var [player1Src, setPlayer1Src] = useState(player1);
+    var [player2Src, setPlayer2Src] = useState(player2);
+    var [disable, setButtonDisable] = useState(false);
+
+
+    useEffect(()=>{
+        if(player1Error || player2Error){
+            setButtonDisable(true);
+        }
+        else{
+            setButtonDisable(false);
+        }
+    }, [player1Error, player2Error]);
 
     var handleClickEvent = function(){
         //props.history.push("startgame");
@@ -63,26 +91,64 @@ function TwoPlayerGame(props){
         setTotalGames(num);
     }
 
+    const changeNameEvent = (e)=>{
+        var {name, value} = e.target;
+        if(value.length<10){
+            if(name=="player1"){
+                setPlayer1Name(value);
+                if(value.length<3){
+                    setPlayer1Error(true);
+                }
+                else{
+                    setPlayer1Error(false);
+                }
+            }
+            else{
+                setPlayer2Name(value);
+                if(value.length<3){
+                    setPlayer2Error(true);
+                }
+                else{
+                    setPlayer2Error(false);
+                }
+            }
+        }
+    }
+    const handleClick = (e)=>{
+        var {name, value} = e.target;
+        
+        if(name=="games"){
+            setModal(true);
+        }
+        else{
+            setModal2(true);
+        }
+    }
+
+    const startGame = ()=>{
+        props.history.push(`/game/${player1Name}/${player2Name}/${totalGames}/${startPlayer}`)
+    }
+
     return (
         <>
         <div class="two-player-title">
             <h1>Two Player Game</h1>
         </div>
         <Card customClass="custom-players-card">
-            <PlayerBox divider={true} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01"/>
-            <PlayerBox divider={true} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02"/>
-            <PlayerBox divider={true} backgroundColor="#EFF3FF" src={win} borderColor="#00000029" name="5 Games" description="Number of Games"/>
-            <PlayerBox divider={true} backgroundColor="#EFF3FF" src={run} borderColor="#00000029" name="Alternative turn" description="Who starts"/>                        
+            <PlayerBox error={player1Error} inputCustomClass={"player1Input"} type={"text"} name={"player1"} value={player1Name} changeNameEvent={changeNameEvent} backgroundColor="#DCF6E4" src={player1Src} borderColor="#37AC5D" description="player 01"/>
+            <PlayerBox error={player2Error} inputCustomClass={"player2Input"} type={"text"} name={"player2"} value={player2Name} changeNameEvent={changeNameEvent} backgroundColor="#F6EFD5" src={player2Src} borderColor="#F8D146" description="player 02"/>
+            <PlayerBox inputCustomClass={"games"} type={"button"} name={"games"} value={`${totalGames} Games`} handleClick={handleClick} backgroundColor="#EFF3FF" src={win} borderColor="#00000029" description="Number of Games"/>
+            <PlayerBox inputCustomClass={"whostarts"} type={"button"} name={"start"} value={gameStartBy[startPlayer]} handleClick={handleClick}  backgroundColor="#EFF3FF" src={run} borderColor="#00000029" description="Who starts"/>                        
             <div className="divider divider-margin"></div>
-            <Button handleClickEvent={()=>{handleClickEvent()}} customStyle={startGameButton} backgroundColor="#4B7BFF">Start Game</Button>
+            <Button disable={disable} handleClickEvent={()=>startGame()} customStyle={startGameButton} backgroundColor="#4B7BFF">Start Game</Button>
         </Card>   
 
         <Modal customClass={modalClass} isModal={modal} title="Number of Games" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton id="2gmaes" value="2" handleClickEvent={(num)=>setRadioButton(num)} >2 Games</RadioButton>
-                <RadioButton id="3gmaes" value="3" handleClickEvent={(num)=>setRadioButton(num)} >3 Games</RadioButton>
-                <RadioButton id="5gmaes" value="5" defaultChecked={"defaultChecked "} handleClickEvent={(num)=>setRadioButton(num)} >5 Games</RadioButton>
-                <RadioButton id="10gmaes" value="10" handleClickEvent={(num)=>setRadioButton(num)} >10 Games</RadioButton>
+                <RadioButton id="2gmaes" value={2}  setValue={totalGames} handleClickEvent={(num)=>setRadioButton(num)} >2 Games</RadioButton>
+                <RadioButton id="3gmaes" value={3} setValue={totalGames} handleClickEvent={(num)=>setRadioButton(num)} >3 Games</RadioButton>
+                <RadioButton id="5gmaes" value={5} setValue={totalGames} handleClickEvent={(num)=>setRadioButton(num)} >5 Games</RadioButton>
+                <RadioButton id="10gmaes" value={10} setValue={totalGames} handleClickEvent={(num)=>setRadioButton(num)} >10 Games</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
@@ -90,7 +156,7 @@ function TwoPlayerGame(props){
                         <Button customStyle={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
                     </div>
                     <div className="button">
-                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{setModal2(true)}}>OK</Button>
+                        <Button customStyle={okButton} name={"games"} backgroundColor="#4B7BFF" handleClickEvent={(event)=>{disableModal()}}>OK</Button>
                     </div>
                 </div>
             </div>
@@ -98,11 +164,11 @@ function TwoPlayerGame(props){
 
         <Modal customClass={modalClass2} isModal={modal2} title="Who Starts" disableModal={disableModal}>
             <div className="modal-content">
-                <RadioButton id="alternative" defaultChecked={"defaultChecked "} value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
-                <RadioButton id="looser" value="b" handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
-                <RadioButton id="winner" value="c" handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
-                <RadioButton id="player1" value="d" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
-                <RadioButton id="player2" value="e" handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
+                <RadioButton id="alternative" setValue={startPlayer} value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
+                <RadioButton id="looser" value="b" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
+                <RadioButton id="winner" value="c" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
+                <RadioButton id="player1" value="d" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
+                <RadioButton id="player2" value="e" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
@@ -110,7 +176,7 @@ function TwoPlayerGame(props){
                         <Button customStyle={cancelButton} backgroundColor="#FFFFFF" handleClickEvent={()=>{disableModal()}}>Cancel</Button>
                     </div>
                     <div className="button">
-                        <Button customStyle={okButton} backgroundColor="#4B7BFF" handleClickEvent={()=>{props.history.push(`/game/${totalGames}/${startPlayer}`)}}>OK</Button>
+                        <Button customStyle={okButton} name={"whostarts"} backgroundColor="#4B7BFF" handleClickEvent={(event)=>{disableModal()}}>OK</Button>
                     </div>
                 </div>
             </div>

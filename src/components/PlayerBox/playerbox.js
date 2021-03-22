@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "../Avatar/Avatar";
 import './playerbox.scss';
 
 function PlayerBox(props){
+
+    var [textInputValue, setTextInputVal] = useState(props.value);
+
+    useEffect(()=>{
+        setTextInputVal(props.value);
+    }, [props.value])
     return (
         <>
-            <div className="playerbox-container" style={{backgroundColor: props.backgroundColor}}>
+            <div className={`playerbox-container ${props.inputCustomClass}`} style={{backgroundColor: props.backgroundColor}}>
                 <Avatar classNameSelected={props.classNameSelected} borderColor={props.borderColor} src={props.src}></Avatar>
                 <div className="description">
                     <p>
                         {props.description}
                     </p>
-                    <h2>
-                        {props.name}
-                    </h2>
+                    {
+                        props.type=="text" ? <>
+                        <input type={props.type} name={props.name} value={textInputValue} onChange={(event)=>props.changeNameEvent(event)} />
+                        { props.error?<div className="error">Enter min of 3 Characters</div>: null }
+                        </>
+                        :
+                        <input type={props.type} name={props.name} value={props.value} onClick={(event)=>props.handleClick(event)} />
+                    }
                 </div>
                 {
                     props.score!=undefined ?
@@ -27,10 +38,7 @@ function PlayerBox(props){
                         </div>
                         :
                         null
-                }
-                {
-                    props.divider ? <div className="playerbox-divider"></div>: null
-                }
+                }                
             </div>
         </>
     )

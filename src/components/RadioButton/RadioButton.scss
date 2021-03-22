@@ -14,12 +14,15 @@
         height:30px;
         background: #4B7BFF 0% 0% no-repeat padding-box;
         margin-right: 30px;
+        cursor: pointer;
     }
     label{
         text-align: left;
         font: normal normal normal 28px/42px Poppins;
         letter-spacing: 0px;
         color: #424242;
+        cursor: pointer;
+        
         @media screen and (max-width: 556px){
             font-size: 20px;
         }

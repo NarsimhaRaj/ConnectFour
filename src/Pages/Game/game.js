@@ -52,7 +52,8 @@ export class Game extends React.Component{
             totalWins: total,
             currentGame: 1,
             totalGames: allGames,
-            currentColBoard: Array(8).fill(7)
+            currentColBoard: Array(8).fill(7),
+            tournamentWinner: ""
         };
     }
 
@@ -99,49 +100,35 @@ export class Game extends React.Component{
     checkForWinningState = (rowIndex, colIndex)=>{       
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
             if(this.state.playerCounter==0){
-                winnerSrc = player1;                
+                winnerSrc = this.props.match.params.player1Src;                
                 winnerBorder = "#37AC5D";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
                     newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
                 }
-                this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
+                if((this.state.player1WinCounter+1)>this.state.player2WinCounter){
+                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState, tournamentWinner: this.props.match.params.player1Name});            
+                }
+                else{
+                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
+                }
             }
             else{
-                winnerSrc = player2;                
+                winnerSrc = this.props.match.params.player2Src;
                 winnerBorder = "#F8D146";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
                     newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
                 }
-                this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1, boardState: newBoardState});
+                if((this.state.player2WinCounter+1)>this.state.player1WinCounter){
+                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState, tournamentWinner: this.props.match.params.player2Name});            
+                }
+                else{
+                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
+                }
             }
         }
 
-    }
-
-    undoStep = ()=>{
-        if(undo.length<=0){ return; }
-        let element = undo.pop();
-        let newBoardState = this.state.boardState;
-        newBoardState[element["x"]][element["y"]] = 0;
-        let newCurrentColBoard = this.state.currentColBoard;
-        console.log(element, newCurrentColBoard[element["x"]]);
-        newCurrentColBoard[element["x"]]=newCurrentColBoard[element["x"]]+1;
-        if(this.state.playerCounter==0){
-            this.setState({...this.state, 
-                boardState: newBoardState, 
-                playerCounter: 1, 
-                currentColBoard: newCurrentColBoard
-            });
-        }
-        else{
-            this.setState({...this.state, 
-                boardState: newBoardState, 
-                playerCounter: 0,
-                currentColBoard: newCurrentColBoard
-            });
-        }
     }
 
     checkHorizontally = (rowIndex, colIndex)=>{
@@ -269,6 +256,31 @@ export class Game extends React.Component{
         return false;
     }
 
+    undoStep = ()=>{
+        if(undo.length>0){
+            let element = undo.pop();
+            let newBoardState = this.state.boardState;
+            newBoardState[element["x"]][element["y"]] = 0;
+            let newCurrentColBoard = this.state.currentColBoard;
+            console.log(element, newCurrentColBoard[element["x"]]);
+            newCurrentColBoard[element["x"]]=newCurrentColBoard[element["x"]]+1;
+            if(this.state.playerCounter==0){
+                this.setState({...this.state, 
+                    boardState: newBoardState, 
+                    playerCounter: 1, 
+                    currentColBoard: newCurrentColBoard
+                });
+            }
+            else{
+                this.setState({...this.state, 
+                    boardState: newBoardState, 
+                    playerCounter: 0,
+                    currentColBoard: newCurrentColBoard
+                });
+            }
+        }
+    }
+
     startNewGame = ()=>{
         if((this.state.currentGame==this.state.totalGames)|| (this.state.player2WinCounter===this.state.totalWins && this.state.player1WinCounter===this.state.totalWins)){
             this.props.history.push("/");
@@ -297,7 +309,7 @@ export class Game extends React.Component{
                 playerCounter: currPlayer,
                 boardState: Array(8).fill().map(() => Array(8).fill(0)),
                 currentColBoard: Array(8).fill(7)
-            })
+            });
         }
     }
 
@@ -368,7 +380,7 @@ export class Game extends React.Component{
                             <>
                                 <div className="congratulations">Congratulations! </div>
                                 <div> 
-                                    {this.state.playerCounter===0? "David": "Mario"}, you Won Tournament
+                                    {this.state.tournamentWinner}, you Won Tournament
                                 </div>
                             </> 
                             : 
