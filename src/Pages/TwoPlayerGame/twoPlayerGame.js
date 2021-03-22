@@ -129,14 +129,37 @@ function TwoPlayerGame(props){
         props.history.push(`/game/${player1Name}/${player2Name}/${totalGames}/${startPlayer}`)
     }
 
+    const getBase64 = (file) => {
+        return new Promise((resolve,reject) => {
+           const reader = new FileReader();
+           reader.onload = () => resolve(reader.result);
+           reader.onerror = error => reject(error);
+           reader.readAsDataURL(file);
+        });
+      }
+
+    const imageUpload=(event)=>{
+        var {name, files} = event.target;
+        getBase64(files[0]).then(base64 => {
+            localStorage[name] = base64;
+            if(name=="player1"){
+                setPlayer1Src(localStorage.getItem(name));
+            }
+            else{
+                setPlayer2Src(localStorage.getItem(name))
+            }
+        });
+
+    }
+
     return (
         <>
         <div class="two-player-title">
             <h1>Two Player Game</h1>
         </div>
         <Card customClass="custom-players-card">
-            <PlayerBox error={player1Error} inputCustomClass={"player1Input"} type={"text"} name={"player1"} value={player1Name} changeNameEvent={changeNameEvent} backgroundColor="#DCF6E4" src={player1Src} borderColor="#37AC5D" description="player 01"/>
-            <PlayerBox error={player2Error} inputCustomClass={"player2Input"} type={"text"} name={"player2"} value={player2Name} changeNameEvent={changeNameEvent} backgroundColor="#F6EFD5" src={player2Src} borderColor="#F8D146" description="player 02"/>
+            <PlayerBox customInputFileClass={"player1InputFileClass"} upload={true} id={"player1"} name={"player1"} imageUpload={imageUpload} error={player1Error} inputCustomClass={"player1Input"} type={"text"} name={"player1"} value={player1Name} changeNameEvent={changeNameEvent} backgroundColor="#DCF6E4" src={player1Src} borderColor="#37AC5D" description="player 01"/>
+            <PlayerBox customInputFileClass={"player2InputFileClass"} upload={true} id={"player2"} name={"player2"} imageUpload={imageUpload} error={player2Error} inputCustomClass={"player2Input"} type={"text"} name={"player2"} value={player2Name} changeNameEvent={changeNameEvent} backgroundColor="#F6EFD5" src={player2Src} borderColor="#F8D146" description="player 02"/>
             <PlayerBox inputCustomClass={"games"} type={"button"} name={"games"} value={`${totalGames} Games`} handleClick={handleClick} backgroundColor="#EFF3FF" src={win} borderColor="#00000029" description="Number of Games"/>
             <PlayerBox inputCustomClass={"whostarts"} type={"button"} name={"start"} value={gameStartBy[startPlayer]} handleClick={handleClick}  backgroundColor="#EFF3FF" src={run} borderColor="#00000029" description="Who starts"/>                        
             <div className="divider divider-margin"></div>

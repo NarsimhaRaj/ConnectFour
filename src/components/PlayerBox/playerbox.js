@@ -12,7 +12,7 @@ function PlayerBox(props){
     return (
         <>
             <div className={`playerbox-container ${props.inputCustomClass}`} style={{backgroundColor: props.backgroundColor}}>
-                <Avatar classNameSelected={props.classNameSelected} borderColor={props.borderColor} src={props.src}></Avatar>
+                <Avatar customInputFileClass={props.customInputFileClass} upload={props.upload} id={props.id} name={props.name} imageUpload={props.imageUpload} classNameSelected={props.classNameSelected} borderColor={props.borderColor} src={props.src}></Avatar>
                 <div className="description">
                     <p>
                         {props.description}

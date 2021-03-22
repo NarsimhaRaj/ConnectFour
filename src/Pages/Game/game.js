@@ -53,7 +53,9 @@ export class Game extends React.Component{
             currentGame: 1,
             totalGames: allGames,
             currentColBoard: Array(8).fill(7),
-            tournamentWinner: ""
+            tournamentWinner: "", 
+            player1Src: localStorage.getItem("player1") || player1,
+            player2Src: localStorage.getItem("player2") || player2,
         };
     }
 
@@ -100,7 +102,7 @@ export class Game extends React.Component{
     checkForWinningState = (rowIndex, colIndex)=>{       
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
             if(this.state.playerCounter==0){
-                winnerSrc = player1;                
+                winnerSrc = this.state.player1Src;                
                 winnerBorder = "#37AC5D";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
@@ -115,7 +117,7 @@ export class Game extends React.Component{
                 }
             }
             else{
-                winnerSrc = player2;
+                winnerSrc = this.state.player2Src;
                 winnerBorder = "#F8D146";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
@@ -338,12 +340,12 @@ export class Game extends React.Component{
                                                 <React.Fragment key={colIndex}>{
                                                 this.state.boardState[rowIndex][colIndex]===1 ?
                                                     <div className="avatar-circle">
-                                                        <Avatar borderColor={"#37AC5D"} backgroundColor={"#DCF6E4"} src={player1}></Avatar>
+                                                        <Avatar borderColor={"#37AC5D"} backgroundColor={"#DCF6E4"} src={this.state.player1Src}></Avatar>
                                                     </div>
                                                     :
                                                     this.state.boardState[rowIndex][colIndex]===2 ?
                                                     <div className="avatar-circle">
-                                                        <Avatar borderColor={"#F8D146"} backgroundColor={"#F6EFD5"} src={player2}></Avatar>
+                                                        <Avatar borderColor={"#F8D146"} backgroundColor={"#F6EFD5"} src={this.state.player2Src}></Avatar>
                                                     </div> 
                                                     :                                                    
                                                     this.state.boardState[rowIndex][colIndex]===3 ?
@@ -397,8 +399,8 @@ export class Game extends React.Component{
                             null
                         }
                         <div>
-                        <PlayerBox  inputCustomClass={"player1GameInput"} value={this.props.match.params.player1} classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 1" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox  inputCustomClass={"player2GameInput"} value={this.props.match.params.player2} classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 2" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox  inputCustomClass={"player1GameInput"} value={this.props.match.params.player1} classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={this.state.player1Src} borderColor="#37AC5D" name="David" description="player 1" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox  inputCustomClass={"player2GameInput"} value={this.props.match.params.player2} classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={this.state.player2Src} borderColor="#F8D146" name="Mario" description="player 2" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">
