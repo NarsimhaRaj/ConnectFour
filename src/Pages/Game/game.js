@@ -100,7 +100,7 @@ export class Game extends React.Component{
     checkForWinningState = (rowIndex, colIndex)=>{       
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
             if(this.state.playerCounter==0){
-                winnerSrc = this.props.match.params.player1Src;                
+                winnerSrc = player1;                
                 winnerBorder = "#37AC5D";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
@@ -114,7 +114,7 @@ export class Game extends React.Component{
                 }
             }
             else{
-                winnerSrc = this.props.match.params.player2Src;
+                winnerSrc = player2;
                 winnerBorder = "#F8D146";
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
