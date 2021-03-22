@@ -252,3 +252,29 @@
 .avatar-winning-circle {
     border: 5px solid #FFFF00;
 }
+
+.player1GameInput input{
+    background-color: #DCF6E4;
+    border-bottom: none !important;
+
+    &:focus{
+        outline: none;
+    }
+}
+
+.player2GameInput input{
+    background-color: #F6EFD5;
+    border-bottom: none !important;
+
+    &:focus{
+        outline: none;
+    }
+}
+
+.games input, .whostarts input{
+    background-color: #EFF3FF;
+    
+    &:focus{
+        outline: none;
+    }
+}

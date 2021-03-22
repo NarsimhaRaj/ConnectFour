@@ -105,9 +105,10 @@ export class Game extends React.Component{
                 let newBoardState = this.state.boardState;
                 for(var i=0;i<4;i++){
                     newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
-                }
+                }                
                 if((this.state.player1WinCounter+1)>this.state.player2WinCounter){
-                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState, tournamentWinner: this.props.match.params.player1Name});            
+                    let tournamentWinnerName = this.props.match.params.player1;
+                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState, tournamentWinner: tournamentWinnerName});            
                 }
                 else{
                     this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
@@ -121,10 +122,11 @@ export class Game extends React.Component{
                     newBoardState[winningPoisitons[i]["x"]][winningPoisitons[i]["y"]] = 3;
                 }
                 if((this.state.player2WinCounter+1)>this.state.player1WinCounter){
-                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState, tournamentWinner: this.props.match.params.player2Name});            
+                    let tournamentWinnerName = this.props.match.params.player2;
+                    this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1, boardState: newBoardState, tournamentWinner: tournamentWinnerName});            
                 }
                 else{
-                    this.setState({...this.state, win: true, player1WinCounter: this.state.player1WinCounter+1, boardState: newBoardState});            
+                    this.setState({...this.state, win: true, player2WinCounter: this.state.player2WinCounter+1, boardState: newBoardState});            
                 }
             }
         }
@@ -282,6 +284,9 @@ export class Game extends React.Component{
     }
 
     startNewGame = ()=>{
+        while(undo.length>0){
+            undo.pop();
+        }
         if((this.state.currentGame==this.state.totalGames)|| (this.state.player2WinCounter===this.state.totalWins && this.state.player1WinCounter===this.state.totalWins)){
             this.props.history.push("/");
         }
@@ -372,11 +377,11 @@ export class Game extends React.Component{
                             ? <>
                                 <div className="congratulations">Congratulations! </div>
                                 <div> 
-                                    {this.state.playerCounter===0? "David": "Mario"}, you Won Game {this.state.currentGame}
+                                    {this.state.playerCounter===0? this.props.match.params.player1 : this.props.match.params.player2}, you Won Game {this.state.currentGame}
                                 </div> 
                             </>
                             : 
-                            (this.state.win && (this.state.player1WinCounter===this.state.totalWins || this.state.player2WinCounter===this.state.totalWins)) ? 
+                            (this.state.win && (this.state.player1WinCounter>=this.state.totalWins || this.state.player2WinCounter>=this.state.totalWins)) ? 
                             <>
                                 <div className="congratulations">Congratulations! </div>
                                 <div> 
@@ -392,8 +397,8 @@ export class Game extends React.Component{
                             null
                         }
                         <div>
-                        <PlayerBox classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
-                        <PlayerBox classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
+                        <PlayerBox  inputCustomClass={"player1GameInput"} value={this.props.match.params.player1} classNameSelected={this.state.playerCounter==0 ? "classNameSelected": null} score={this.state.player1WinCounter} backgroundColor="#DCF6E4" src={player1} borderColor="#37AC5D" name="David" description="player 01" backgroundColor={"#DCF6E4"}/>
+                        <PlayerBox  inputCustomClass={"player2GameInput"} value={this.props.match.params.player2} classNameSelected={this.state.playerCounter==1 ? "classNameSelected": null} score={this.state.player2WinCounter} backgroundColor="#F6EFD5" src={player2} borderColor="#F8D146" name="Mario" description="player 02" backgroundColor={"#F6EFD5"}/>            
                         </div>
                         <div className="button-group">
                             <div className="button">
