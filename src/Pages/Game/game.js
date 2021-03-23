@@ -289,7 +289,7 @@ export class Game extends React.Component{
         while(undo.length>0){
             undo.pop();
         }
-        if((this.state.currentGame==this.state.totalGames)|| (this.state.player2WinCounter===this.state.totalWins && this.state.player1WinCounter===this.state.totalWins)){
+        if((this.state.currentGame==this.state.totalGames)|| (this.state.player2WinCounter===this.state.totalWins || this.state.player1WinCounter===this.state.totalWins)){
             this.props.history.push("/");
         }
         else{
