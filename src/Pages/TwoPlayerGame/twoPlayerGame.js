@@ -44,8 +44,8 @@ var modalClass2 = {
 
 const gameStartBy = {
     'a' : "Alternative turn",
-    'b':'Winner first',
-    'c':'Looser first',
+    'b':'Looser first',
+    'c':'Winner first',
     'd':'Always Player1',
     'e':'Always Player2'
 }
@@ -190,8 +190,8 @@ function TwoPlayerGame(props){
                 <RadioButton id="alternative" setValue={startPlayer} value="a" handleClickEvent={(p)=>setStartPlayer(p)} >Alternative turn</RadioButton>
                 <RadioButton id="looser" value="b" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Looser first</RadioButton>
                 <RadioButton id="winner" value="c" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Winner first</RadioButton>
-                <RadioButton id="player1" value="d" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
-                <RadioButton id="player2" value="e" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
+                <RadioButton id="Alwaysplayer1" value="d" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 01</RadioButton>
+                <RadioButton id="Alwaysplayer2" value="e" setValue={startPlayer} handleClickEvent={(p)=>setStartPlayer(p)} >Always player 02</RadioButton>
             </div>
             <div className="modal-footer">
                 <div className="row row-buttons">
