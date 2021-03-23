@@ -339,12 +339,12 @@ export class Game extends React.Component{
                                             return (
                                                 <React.Fragment key={colIndex}>{
                                                 this.state.boardState[rowIndex][colIndex]===1 ?
-                                                    <div className="avatar-circle">
+                                                    <div className="avatar-circle avatar-animate">
                                                         <Avatar borderColor={"#37AC5D"} backgroundColor={"#DCF6E4"} src={this.state.player1Src}></Avatar>
                                                     </div>
                                                     :
                                                     this.state.boardState[rowIndex][colIndex]===2 ?
-                                                    <div className="avatar-circle">
+                                                    <div className="avatar-circle avatar-animate">
                                                         <Avatar borderColor={"#F8D146"} backgroundColor={"#F6EFD5"} src={this.state.player2Src}></Avatar>
                                                     </div> 
                                                     :                                                    
