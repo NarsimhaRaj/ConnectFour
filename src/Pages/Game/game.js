@@ -6,6 +6,7 @@ import player1 from '../../Assets/images/avatar01.png';
 import player2 from '../../Assets/images/avatar02.png';
 import PlayerBox from '../../components/PlayerBox/playerbox';
 import Button from '../../components/buttons/Button';
+import waterDrop from "../../Assets/audio/WaterDrop.mp3";
 
 var undo = [];
 var winningPoisitons = [];
@@ -57,12 +58,15 @@ export class Game extends React.Component{
             player1Src: localStorage.getItem("player1") || player1,
             player2Src: localStorage.getItem("player2") || player2,
         };
+
+        this.audio = new Audio(waterDrop);
     }
 
     handleClickEvent = (event, colIndex) => {
         if(this.state.win){
             return;
         }
+        this.audio.play();
         var rowIndex  = this.state.currentColBoard[colIndex];
         
         if(rowIndex<0){
@@ -98,6 +102,10 @@ export class Game extends React.Component{
         }    
 
         this.checkForWinningState(colIndex, rowIndex);
+
+        setTimeout(()=>{
+            this.audio.pause();
+        }, 500)
     }   
     checkForWinningState = (rowIndex, colIndex)=>{       
         if(this.checkVertically(rowIndex, colIndex) || this.checkHorizontally(rowIndex, colIndex) || this.checkDiagonally(rowIndex, colIndex)){
