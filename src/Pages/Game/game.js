@@ -62,6 +62,43 @@ export class Game extends React.Component{
         this.audio = new Audio(waterDrop);
     }
 
+//   handleDrag = (e) => {
+//     e.preventDefault()
+//     e.stopPropagation()
+//   }
+//   handleDragIn = (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//   }
+//   handleDragOut = (e) => {
+//     e.preventDefault()
+//     e.stopPropagation()
+//   }
+//   handleDrop = (e) => {
+//     e.preventDefault();
+//     e.stopPropagation();
+//     console.log(e);
+//     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+//       this.props.handleDrop(e.dataTransfer.files);
+//       e.dataTransfer.clearData();
+//       this.dragCounter = 0;
+//     }
+//   }
+//   componentDidMount() {
+//     let div = this.dropRef.current
+//     div.addEventListener('dragenter', this.handleDragIn)
+//     div.addEventListener('dragleave', this.handleDragOut)
+//     div.addEventListener('dragover', this.handleDrag)
+//     div.addEventListener('drop', this.handleDrop)
+//   }
+//   componentWillUnmount() {
+//     let div = this.dropRef.current
+//     div.removeEventListener('dragenter', this.handleDragIn)
+//     div.removeEventListener('dragleave', this.handleDragOut)
+//     div.removeEventListener('dragover', this.handleDrag)
+//     div.removeEventListener('drop', this.handleDrop)
+//   }
+
     handleClickEvent = (event, colIndex) => {
         if(this.state.win){
             return;
@@ -328,6 +365,15 @@ export class Game extends React.Component{
         }
     }
 
+    dragOver = (ev) => {
+        ev.preventDefault();
+    }
+      
+    drop = (ev, colIndex) => {
+        const droppedItem = ev.dataTransfer.getData("player");
+        this.handleClickEvent(ev, colIndex);
+    }
+
     render(){
 
         return (
@@ -341,7 +387,7 @@ export class Game extends React.Component{
                     {
                         this.state.boardState.map((rowElement, rowIndex)=>{
                             return (
-                                <div key={rowIndex} className="game-col" onClick={(event)=>this.handleClickEvent(event, rowIndex)}>
+                                <div onDragOver={this.dragOver} onDrop={(ev)=>this.drop(ev, rowIndex)} key={rowIndex} className="game-col">
                                     {
                                         rowElement.map((colElement, colIndex)=>{
                                             return (

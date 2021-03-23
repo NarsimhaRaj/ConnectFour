@@ -5,12 +5,16 @@ function Avatar(props){
 
     var fileRef = useRef();
 
+    var startDrag = (ev) => {
+        ev.dataTransfer.setData("player", props.src);
+    }
+
     return (
         <>
         {
             props.classNameSelected ? <div className={props.classNameSelected}>
                 <div>
-                    <div className="avatar" style={{borderColor: props.borderColor, backgroundColor: props.backgroundColor }}>
+                    <div className="avatar" draggable onDragStart={startDrag} style={{borderColor: props.borderColor, backgroundColor: props.backgroundColor }}>
                         {
                             props.src ? props.upload ? <>
                                 <input style={{display: "none"}} type={"file"} id={props.id} name={props.name} onChange={(event)=>props.imageUpload(event)} ref={fileRef}/>
